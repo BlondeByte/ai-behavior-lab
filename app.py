@@ -1,3 +1,4 @@
+from email.utils import quote
 import os
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -61,11 +62,11 @@ h1, h2, h3 {
 def log_to_airtable(user_input, response, mode, result):
     from urllib.parse import quote
 
-if not AIRTABLE_TABLE_NAME:
-    st.error("Missing Airtable table name")
-    return
+    if not AIRTABLE_TABLE_NAME:
+        st.error("Missing Airtable table name")
+        return
 
-table_name_encoded = quote(str(AIRTABLE_TABLE_NAME))
+    table_name_encoded = quote(str(AIRTABLE_TABLE_NAME))
 
     url = f"https://api.airtable.com/v0/{AIRTABLE_BASE_ID}/{table_name_encoded}"
 
