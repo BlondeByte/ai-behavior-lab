@@ -90,12 +90,38 @@ def log_to_airtable(user_input, response, mode, result):
     except Exception:
         st.error("Airtable connection error ❌")
 
-client = OpenAI(
-    api_key=st.secrets.get("OPENAI_API_KEY") or os.getenv("OPENAI_API_KEY")
-)
-AIRTABLE_API_KEY = st.secrets.get("AIRTABLE_API_KEY") or os.getenv("AIRTABLE_API_KEY")
-AIRTABLE_BASE_ID = st.secrets.get("AIRTABLE_BASE_ID") or os.getenv("AIRTABLE_BASE_ID")
-AIRTABLE_TABLE_NAME = st.secrets.get("AIRTABLE_TABLE_NAME") or os.getenv("AIRTABLE_TABLE_NAME")
+api_key = os.getenv("OPENAI_API_KEY")
+if not api_key:
+    try:
+        api_key = st.secrets["OPENAI_API_KEY"]
+    except:
+        api_key = None
+
+client = OpenAI(api_key=api_key)
+
+
+AIRTABLE_API_KEY = os.getenv("AIRTABLE_API_KEY")
+if not AIRTABLE_API_KEY:
+    try:
+        AIRTABLE_API_KEY = st.secrets["AIRTABLE_API_KEY"]
+    except:
+        AIRTABLE_API_KEY = None
+
+
+AIRTABLE_BASE_ID = os.getenv("AIRTABLE_BASE_ID")
+if not AIRTABLE_BASE_ID:
+    try:
+        AIRTABLE_BASE_ID = st.secrets["AIRTABLE_BASE_ID"]
+    except:
+        AIRTABLE_BASE_ID = None
+
+
+AIRTABLE_TABLE_NAME = os.getenv("AIRTABLE_TABLE_NAME")
+if not AIRTABLE_TABLE_NAME:
+    try:
+        AIRTABLE_TABLE_NAME = st.secrets["AIRTABLE_TABLE_NAME"]
+    except:
+        AIRTABLE_TABLE_NAME = None
 
 st.markdown("""
 <h1>🧪 AI Behavior Lab</h1>
